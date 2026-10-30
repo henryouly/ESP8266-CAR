@@ -61,7 +61,7 @@ Connect to the `NodeMCU_Car` Wi-Fi network, then:
 | `GET http://192.168.4.1/right` | Turn right |
 | `GET http://192.168.4.1/stop` | Stop |
 | `GET http://192.168.4.1/pwm1?pwm=N` | Set left motor PWM (0–1023) |
-| `GET http://192.168.4.1/pwm2?pwm=N` | Set right motor PWM (0–1023), currently broken |
+| `GET http://192.168.4.1/pwm2?pwm=N` | Set right motor PWM (0–1023) |
 
 Direction mapping lives in `PIN_DEF` (`esp8266_car.ino:10`).
 
@@ -109,8 +109,6 @@ deprecated `compile` configuration names, and allow cleartext HTTP traffic to
 
 ## Known issues
 
-* `pwm2` route is registered without a leading slash (`esp8266_car.ino:49`), so
-  it is unreachable.
 * `D0` is GPIO16, which has no hardware PWM on the ESP8266 — use `D1`/`D2` for
   PWM if speed control is required.
 * The AP password and server IP are hardcoded, and the HTTP endpoints have no

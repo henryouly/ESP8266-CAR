@@ -65,8 +65,6 @@ HTTP server on port 80. Endpoints are documented in `README.md`.
 
 ## Known firmware bugs
 
-* `pwm2` route is registered as `"pwm2"` without a leading slash
-  (`esp8266_car.ino:49`), so it is unreachable — should be `"/pwm2"`.
 * `D0` is GPIO16 (no hardware PWM); `PWM_PIN` uses `D0`/`D2` (`esp8266_car.ino:18`),
   so left-motor speed control via `pwm1` does not work. Prefer `D1`/`D2`.
 * AP credentials, IP, and endpoints are hardcoded with no authentication.

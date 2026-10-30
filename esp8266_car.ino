@@ -46,7 +46,7 @@ void setupWebServer() {
     analogWrite(PWM_PIN[0], pwm);
     server.send(200, "text/html", WEBPAGE);    
   });
-  server.on("pwm2", []() {
+  server.on("/pwm2", []() {
     int pwm=server.arg("pwm").toInt();
     analogWrite(PWM_PIN[1], pwm);
     server.send(200, "text/html", WEBPAGE);    

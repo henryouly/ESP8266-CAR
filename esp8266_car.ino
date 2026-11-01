@@ -14,8 +14,8 @@ int PIN_DEF[][4] = {
   {HIGH, HIGH, LOW, HIGH},
   {HIGH, HIGH, HIGH, HIGH},
 };
-int* PIN = new int[4] { D3, D4, D5, D6 };
-int* PWM_PIN = new int[2] { D0, D2 };
+int* PIN = new int[4] { D0, D7, D5, D6 };
+int* PWM_PIN = new int[2] { D1, D2 };
 String WEBPAGE = 
   "<h1>ESP8266 CAR</h1>"
   "<a href=\"/forward\"><button>FORWARD</button></a>"

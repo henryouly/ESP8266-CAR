@@ -65,8 +65,6 @@ HTTP server on port 80. Endpoints are documented in `README.md`.
 
 ## Known firmware bugs
 
-* `D0` is GPIO16 (no hardware PWM); `PWM_PIN` uses `D0`/`D2` (`esp8266_car.ino:18`),
-  so left-motor speed control via `pwm1` does not work. Prefer `D1`/`D2`.
 * AP credentials, IP, and endpoints are hardcoded with no authentication.
 
 ## Android app

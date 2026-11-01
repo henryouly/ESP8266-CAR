@@ -31,10 +31,9 @@ Phone (Android app)  --HTTP GET-->  192.168.4.1  (NodeMCU AP "NodeMCU_Car")
 * Connect L298N `+12V` to NodeMCU `Vin` pin
 * Connect L298N `GND` to NodeMCU `GND` pin
 * Leave L298N `+5V` open
-* Connect L298N `IN1`, `IN2`, `IN3`, `IN4` to NodeMCU `D3`, `D4`, `D5`, `D6`
-* Combine the motors into two groups: left group on `OUT2`, right group on `OUT3`
-* L298N `ENA`/`ENB` go to NodeMCU `D0`/`D2` for PWM speed control (see
-  [Known issues](#known-issues) about `D0`)
+* Connect L298N `IN1`, `IN2`, `IN3`, `IN4` to NodeMCU `D0`, `D7`, `D5`, `D6`
+* Combine the motors into two groups: right group on `OUT1`/`OUT2`, left group on `OUT3`/`OUT4`
+* L298N `ENA`/`ENB` go to NodeMCU `D1`/`D2` for PWM speed control
 
 > Note: feeding 12 V into NodeMCU `Vin` works but stresses the onboard regulator.
 > A separate buck converter to 5 V is recommended for the NodeMCU.
@@ -43,7 +42,7 @@ Phone (Android app)  --HTTP GET-->  192.168.4.1  (NodeMCU AP "NodeMCU_Car")
 
 The sketch:
 
-1. Configures the direction pins (`D3`–`D6`) and PWM pins (`D0`, `D2`).
+1. Configures the direction pins (`D0`, `D5`–`D7`) and PWM pins (`D1`, `D2`).
 2. Starts a soft access point: SSID `NodeMCU_Car`, password `nodemcucar`
    (IP `192.168.4.1`).
 3. Serves the control HTTP API on port 80.
@@ -60,8 +59,8 @@ Connect to the `NodeMCU_Car` Wi-Fi network, then:
 | `GET http://192.168.4.1/left` | Turn left |
 | `GET http://192.168.4.1/right` | Turn right |
 | `GET http://192.168.4.1/stop` | Stop |
-| `GET http://192.168.4.1/pwm1?pwm=N` | Set left motor PWM (0–1023) |
-| `GET http://192.168.4.1/pwm2?pwm=N` | Set right motor PWM (0–1023) |
+| `GET http://192.168.4.1/pwm1?pwm=N` | Set right motor PWM (0–1023) |
+| `GET http://192.168.4.1/pwm2?pwm=N` | Set left motor PWM (0–1023) |
 
 Direction mapping lives in `PIN_DEF` (`esp8266_car.ino:10`).
 
@@ -109,8 +108,6 @@ deprecated `compile` configuration names, and allow cleartext HTTP traffic to
 
 ## Known issues
 
-* `D0` is GPIO16, which has no hardware PWM on the ESP8266 — use `D1`/`D2` for
-  PWM if speed control is required.
 * The AP password and server IP are hardcoded, and the HTTP endpoints have no
   authentication; use only on a private bench/network.
 * `TYPE_ORIENTATION` is deprecated, and the tilt mapping assumes a specific
